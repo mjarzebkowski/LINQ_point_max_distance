@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/LINQ_point_max_distance/LINQ_point_max_distance.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
