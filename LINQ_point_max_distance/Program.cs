@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Security.Cryptography;
@@ -12,9 +14,9 @@ namespace LINQ_point_max_distance
         {
             // List<Point> pointList = new List<Point>(generatePointList(100000));
             List<Point> pointList = new List<Point>();
-            pointList = generatePointList(100000);
-            //printList(pointList);
-            findMax3(pointList);
+            pointList = generatePointList(1000);
+            printList(pointList);
+            FindMax3(pointList);
 
             Console.ReadKey();
         }
@@ -40,19 +42,35 @@ namespace LINQ_point_max_distance
             }
         }
 
-        static void findMax3(List<Point> pointList)
+        static void FindMax3(List<Point> pointList)
         {
-            List<Point> maxDistancePoint = new List<Point>();
-            maxDistancePoint = from p in pointList where Math.Sqrt((p._X * p._X) + (p._Y * p._Y))  ;
-            // Math.Sqrt((Point._X * Point._X) + (Point._Y * Point._Y));
-            // Console.WriteLine(p1 + "distance:  " + p2 + "distance:   " + p3 + "distance:   ");
-            SELECT TOP 3 FROM pointList WHERE Math.Sqrt((p._X * p._X) + (p._Y * p._Y)) == MAX
-            foreach (Point p in pointList)
-            {
-                Console.WriteLine(p + " distance: " + Math.Sqrt((p._X * p._X) + (p._Y * p._Y)));
-            }
 
-            var resoult = 
+            //var youngest = people.Select(p => new { ppl = p; age = p.DateOfBirth }).Min().ppl;
+
+            //maxDistancePoint.Add( pointList.Aggregate((Point p, double distance) => ( p._X * p._Y).
+            //// Math.Sqrt((Point._X * Point._X) + (Point._Y * Point._Y));
+
+            // SELECT TOP 3 FROM pointList WHERE Math.Sqrt((p._X * p._X) + (p._Y * p._Y)) == MAX
+            //foreach (Point p in pointList)
+            //{
+            //    Console.WriteLine(p + " distance: " + Math.Sqrt((p._X * p._X) + (p._Y * p._Y)));
+            //}
+
+            //var resoult = 
+            Console.WriteLine();
+            //List<Point> maxDistancePoint = new List<Point>();
+            //Debug.Assert(pointList != null, nameof(pointList) + " != null");
+
+            var maxDistancePoint =
+                (
+                    from point in pointList
+                    select point
+                ).Take(3);
+
+            foreach (Point p in maxDistancePoint)
+            {
+                Console.WriteLine(p);
+            }
 
         }
     }
@@ -77,6 +95,11 @@ namespace LINQ_point_max_distance
         public override string ToString()
         {
             return string.Format("Point:{0} X:{1} Y:{2}", id, X, Y);
+        }
+
+        public double Distance()
+        {
+            return Math.Sqrt(X * X + Y * Y);
         }
 
     }
